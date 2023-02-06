@@ -4,25 +4,31 @@ import (
     "context"
     "net/http"
     "fmt"
+    "os"
 
-    pb "golang.a2z.com/server/rpc"
+    "golang.a2z.com/stableDiffusion/internal/hooks"
+    //"golang.a2z.com/stableDiffusion/internal/server"
+    pb "golang.a2z.com/stableDiffusion/rpc"
 )
 
 
-type DiffusionServer struct{}
+type diffusionServer struct{}
 
 
-func (s *DiffusionServer) GetImage(ctx context.Context, req *pb.String) (*pb.NumpyArray, error) {
-    client := pb.NewGetAudioProtobufClient("http://localhost:9001", &http.Client{}) 
+func (s *diffusionServer) DiffusionModel(ctx context.Context, req *pb.String) (*pb.NumpyArray, error) {
+    client := pb.NewText2ImageProtobufClient("http://localhost:9001", &http.Client{}) 
     resp, err := client.DiffusionModel(context.Background(), req)
     if err == nil {
         fmt.Println("Got a reponce from Stable Diffusion Model")
     }
+    return resp, err
 }
 
 
 func main() {
-    twirpHandler := pbs.server(&JarvisServer)
+    hooks := hooks.LoggingHooks(os.Stderr) 
+    twirpHandler := pb.NewText2ImageServer(&diffusionServer{}, hooks)
+
     mux := http.NewServeMux() //Can use any mux 
     mux.Handle(twirpHandler.PathPrefix(), twirpHandler)
 

@@ -1,31 +1,19 @@
 syntax = "proto3";
 package twirp.server;
-option go_package = "./;server";
+option go_package = "./;diffusionServer";
 
-service GetAudio {
-    rpc WhisperServer(NumpyArray) returns (String);
-    rpc WhisperEnd(NumpyArray) returns (String);
-}
-
-service GetEmbedding  {
-    rpc BloomServer(String) returns (NumpyArray);
-    rpc BloomEnd(String) returns (NumpyArray);
-}
-
-service GetCommand {
-    rpc DataBaseServer(NumpyArray) returns (String);
-    rpc DataBaseEnd(NumpyArray) returns (String);
+service Text2Image {
+    rpc DiffusionModel(String) returns (NumpyArray);
 }
 
 
 message NumpyArray {
-    string name = 1;
-    bytes shape = 2;
-    bytes array = 3;
+    bytes Shape = 2;
+    bytes Array = 3;
 }
 
 message String {
-    string returnText = 1;
+    string Text = 1;
 }
 
 
