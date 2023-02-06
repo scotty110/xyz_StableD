@@ -19,8 +19,8 @@ import server_twirp
 
 class model():
     def __init__(self):
-        model_id = "CompVis/stable-diffusion-v1-4"
-        #model_id = "stabilityai/stable-diffusion-2-1"
+        #model_id = "CompVis/stable-diffusion-v1-4"
+        model_id = "stabilityai/stable-diffusion-2-1"
         device = "cuda"
 
         pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16, revision="fp16")
