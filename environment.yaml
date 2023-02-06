@@ -1,4 +1,4 @@
-name: jarvis
+name: stabled 
 channels:
   - pytorch
   - conda-forge
@@ -22,7 +22,9 @@ dependencies:
   - sacrebleu
   - uvicorn
   - pip:
+    - accelerate
     - datasets
+    - diffusers
     - transformers
     - rouge-score
     - twirp
