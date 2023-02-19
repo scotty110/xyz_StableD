@@ -5,6 +5,7 @@ from diffusers import StableDiffusionPipeline
 
 import sys
 import numpy as np
+import io
 
 # Twirp Stuff
 import asyncio
@@ -29,7 +30,10 @@ class model():
 
     def run(self, prompt:str):
         image = self.pipe( prompt ).images[0]
-        return np.array(image, dtype=np.float64)
+        with io.BytesIO() as img_bytes:
+            image.save(img_bytes, format="PNG")
+            contents = img_bytes.getvalue()
+        return contents
 
 
 #class Text2Image(object):
@@ -37,16 +41,14 @@ class T2IService(object):
     def __init__(self):
         self.sd_model = model()
 
-    def DiffusionModel(self, context, req) -> server_pb2.NumpyArray:
-        array = self.sd_model.run( req.Text )
-        print(array.shape)
+    def DiffusionModel(self, context, req) -> server_pb2.Bytes:
+        bts = self.sd_model.run( req.Text )
 
-        # Turn into PD array object
-        pb_array = server_pb2.NumpyArray()
-        pb_array.Array = array.tobytes()
-        pb_array.Shape = (np.array(array.shape)).tobytes()
-
-        return pb_array
+        b_obj = server_pb2.Bytes()
+        b_obj.Name = req.Text
+        b_obj.Bytes = bts
+        return b_obj
+        
 
 
 #if __name__ == '__main__':

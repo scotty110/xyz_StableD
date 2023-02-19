@@ -21,7 +21,7 @@ class Text2ImageServer(TwirpServer):
 				name="DiffusionModel",
 				function=getattr(service, "DiffusionModel"),
 				input=_sym_db.GetSymbol("twirp.server.String"),
-				output=_sym_db.GetSymbol("twirp.server.NumpyArray"),
+				output=_sym_db.GetSymbol("twirp.server.Bytes"),
 			),
 		}
 
@@ -32,6 +32,6 @@ class Text2ImageClient(TwirpClient):
 			url=F"{server_path_prefix}/twirp.server.Text2Image/DiffusionModel",
 			ctx=ctx,
 			request=request,
-			response_obj=_sym_db.GetSymbol("twirp.server.NumpyArray"),
+			response_obj=_sym_db.GetSymbol("twirp.server.Bytes"),
 			**kwargs,
 		)
