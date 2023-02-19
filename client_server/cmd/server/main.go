@@ -7,7 +7,6 @@ import (
     "os"
 
     "golang.a2z.com/stableDiffusion/internal/hooks"
-    //"golang.a2z.com/stableDiffusion/internal/server"
     pb "golang.a2z.com/stableDiffusion/rpc"
 )
 

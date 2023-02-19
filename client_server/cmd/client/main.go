@@ -4,7 +4,6 @@ import (
     "bufio"
     "context"
     "fmt"
-    //"log"
     "os"
     "net/http"
     "strings"
@@ -29,18 +28,15 @@ func main() {
     sd, err = client.DiffusionModel(context.Background(), inputString)
     if err != nil {
         fmt.Println("Stable Diffusion Errored out")
-        fmt.Println(sd)
     } else {
-        fmt.Println("Stable Diffusion Ran, Probably")
-    }
-
-    // Write to file
-    fname := strings.Replace(inputString.Text, " ", "_", -1)
-    fname = fmt.Sprintf("%s.png", strings.Replace(fname, "\n","", -1))
-    f, err := os.Create(fname)
-    if err != nil {
-        panic(err)
-    } else {
-        f.Write(sd.Bytes)
+        // Write to file
+        fname := strings.Replace(inputString.Text, " ", "_", -1)
+        fname = fmt.Sprintf("%s.png", strings.Replace(fname, "\n","", -1))
+        f, err := os.Create(fname)
+        if err != nil {
+            panic(err)
+        } else {
+            f.Write(sd.Bytes)
+        }
     }
 }

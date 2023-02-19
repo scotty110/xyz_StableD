@@ -53,7 +53,6 @@ class T2IService(object):
 
 #if __name__ == '__main__':
 logging.basicConfig() 
-#service = hello_twirp.HelloWorldServer(service=HelloService())
 service = server_twirp.Text2ImageServer(service=T2IService())
 app = TwirpASGIApp()
 app.add_service(service)
