@@ -31,5 +31,5 @@ func main() {
     mux := http.NewServeMux() //Can use any mux 
     mux.Handle(twirpHandler.PathPrefix(), twirpHandler)
 
-    http.ListenAndServe("localhost:8080", mux)
+    http.ListenAndServe(":8080", mux)
 }
