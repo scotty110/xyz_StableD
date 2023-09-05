@@ -1,0 +1,24 @@
+syntax = "proto3";
+package twirp.server;
+option go_package = "./;diffusionServer";
+
+service Text2Image {
+    rpc DiffusionModel(String) returns (Bytes);
+}
+
+
+message NumpyArray {
+    bytes Shape = 1;
+    bytes Array = 2;
+}
+
+message Bytes {
+    string Name = 1;
+    bytes Bytes = 2;
+}
+
+message String {
+    string Text = 1;
+}
+
+

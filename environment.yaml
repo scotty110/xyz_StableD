@@ -1,0 +1,30 @@
+name: stabled 
+channels:
+  - pytorch
+  - conda-forge
+  - nvidia
+dependencies:
+  - python=3.9
+  - pytorch=1.13
+  - cudatoolkit=11.7
+  - absl-py
+  - pip
+  - pandas
+  - py-rouge
+  - py7zr
+  - protobuf
+  - grpcio
+  - matplotlib
+  - nltk
+  - scikit-learn
+  - seqeval
+  - sentencepiece
+  - sacrebleu
+  - uvicorn
+  - pip:
+    - accelerate
+    - datasets
+    - diffusers
+    - transformers
+    - rouge-score
+    - twirp
